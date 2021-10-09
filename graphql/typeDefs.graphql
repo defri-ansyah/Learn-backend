@@ -1,0 +1,51 @@
+type Query {
+  getAllStudent: [Student]
+  getClassroom (name:String): Classroom
+  # getStudent (age: Int, name: String , offset: Int, limit: Int): [Student]
+  getStudent (where: Filter, sort: sortBy , offset: Int, limit: Int): [Student]
+  getStudentByGender (where: Gender): [Student]
+}
+
+type Mutation {
+  createStudent (
+    name: String
+    age: Int
+    gender: String
+  ): String
+  createClassroom (
+    name: String
+  ): String
+  assignStudentToClassroom (
+    student_id: ID!
+    classroom_id: ID!
+  ): String
+}
+
+type Student {
+  id: ID!
+  name: String
+  age: Int
+  gender: String
+  classroom_id: Int
+  classroom: Classroom
+}
+
+type Classroom {
+  id: ID!
+  name: String
+  students (where: Filter, sort: sortBy , offset: Int, limit: Int): [Student]
+}
+
+input Filter {
+  age: Int
+  gender: String
+}
+
+input sortBy {
+  name: String
+  age: String
+}
+
+input Gender {
+  gender: String
+}
