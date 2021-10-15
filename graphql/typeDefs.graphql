@@ -1,8 +1,8 @@
 type Query {
-  getAllStudent: [Student]
+  getAllClassroom: [Classroom]
   getClassroom (name:String): Classroom
   # getStudent (age: Int, name: String , offset: Int, limit: Int): [Student]
-  getStudent (where: Filter, sort: sortBy , offset: Int, limit: Int): [Student]
+  getStudent (where: Filter, sort: sortBy , offset: Int, limit: Int, search: String): [Student]
   getStudentByGender (where: Gender): [Student]
 }
 
@@ -31,19 +31,22 @@ type Student {
 }
 
 type Classroom {
-  id: ID!
+  id: Int
   name: String
-  students (where: Filter, sort: sortBy , offset: Int, limit: Int): [Student]
+  students (where: Filter, sort: sortBy , offset: Int, limit: Int, search: String): [Student]
 }
 
 input Filter {
   age: Int
   gender: String
+  name: String
+  classroom_id: Int 
 }
 
 input sortBy {
   name: String
   age: String
+  gender: String
 }
 
 input Gender {
